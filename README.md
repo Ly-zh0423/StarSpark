@@ -40,7 +40,7 @@ StarSpark/
 ### 安装依赖
 
 ```bash
-pip install requests beautifulsoup4 pyyaml
+pip install requests bs4 pyyaml schedule
 ```
 
 ### 配置
