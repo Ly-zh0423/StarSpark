@@ -1,0 +1,21 @@
+# config.yaml
+
+# 数据库配置
+database:
+  path: "star_spark.db"  # SQLite 数据库文件路径
+
+# 爬虫配置
+crawler:
+  # 爬取周期类型，支持: daily, weekly, monthly
+  periods:
+    - daily
+    - weekly
+    - monthly
+  # 请求延迟（秒），防止被 GitHub 封禁
+  request_delay: 2.0 
+
+# 下载配置
+download:
+  auto_download: false    # 是否自动下载项目 zip 包
+  mirror_url: "https://gh.xmly.dev"  # GitHub 下载镜像地址
+  save_dir: "./downloads"  # zip 包本地保存目录
