@@ -19,3 +19,12 @@ download:
   auto_download: false    # 是否自动下载项目 zip 包
   mirror_url: "https://gh.xmly.dev"  # GitHub 下载镜像地址
   save_dir: "./downloads"  # zip 包本地保存目录
+
+scheduler:
+  # 执行时间窗口（24小时制）
+  start_hour: 20
+  start_minute: 0
+  end_hour: 22
+  end_minute: 30
+  # 调度器检查频率（秒）
+  check_interval: 60

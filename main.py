@@ -1,26 +1,33 @@
 # main.py
 import sys
+import logging
 from config import load_config
-from services.github_service import GitHubService
+from services.scheduler import TaskScheduler
+
+# 配置基础日志格式
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S"
+)
+logger = logging.getLogger(__name__)
 
 def main():
-    print("🚀 StarSpark 正在启动...")
+    logger.info("🚀 StarSpark 正在启动...")
     
     try:
-        # 加载配置文件
+        # 1. 加载配置文件
         config = load_config("config.yaml")
-        # 初始化核心业务服务
-        service = GitHubService(config)
-        # 执行爬取、存储与下载任务
-        service.run_crawl_and_save()
         
-        print("\n🎉 所有任务执行完毕！")
+        # 2. 初始化并启动调度器
+        scheduler = TaskScheduler(config)
+        scheduler.run_scheduler()
         
     except FileNotFoundError as e:
-        print(f"\n❌ 启动失败: {e}")
+        logger.error(f"❌ 启动失败: {e}")
         sys.exit(1)
     except Exception as e:
-        print(f"\n❌ 运行期间发生未知错误: {e}")
+        logger.error(f"❌ 运行期间发生未知错误: {e}", exc_info=True)
         sys.exit(1)
 
 if __name__ == "__main__":
