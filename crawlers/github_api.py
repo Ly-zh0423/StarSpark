@@ -55,11 +55,13 @@ class GitHubCrawler:
                 language = lang_tag.text.strip() if lang_tag else ""
 
                 # 提取 Star / Fork / Issue 数量
-                stars_text = article.select_one("a.Link--muted.d-inline-block.mr-3")
-                forks_text = article.select("a.Link--muted.d-inline-block.mr-3")[1] if len(article.select("a.Link--muted.d-inline-block.mr-3")) > 1 else None
+                stars_text = article.select_one("a.tmp-mr-3.Link.Link--muted.d-inline-block")
+                forks_text = article.select("a.tmp-mr-3.Link.Link--muted.d-inline-block")[1] if len(article.select("a.tmp-mr-3.Link.Link--muted.d-inline-block")) > 1 else None
                 
                 stars = int(stars_text.text.strip().replace(",", "")) if stars_text else 0
+                # print(stars)
                 forks = int(forks_text.text.strip().replace(",", "")) if forks_text else 0
+                # print(forks)
                 issues = 0 # Trending 页面通常不直接显示 Issue 数量，可置 0 或通过 API 补充
 
                 parsed_data.append({
